@@ -261,6 +261,52 @@ footer{text-align:center;color:var(--gris);font-size:.85rem;padding:20px}
   body{background:#fff}
   .solo-print{display:block!important}
 }
+
+/* ---------- Glosario ---------- */
+.pill.boton{cursor:pointer;background:var(--ambar);color:#3a2a00;border-color:#ffd66b;font-weight:800;transition:transform .1s, box-shadow .1s;box-shadow:0 2px 0 #c98410}
+.pill.boton:hover{transform:translateY(-1px);box-shadow:0 3px 0 #c98410}
+.pill.boton:active{transform:translateY(1px);box-shadow:none}
+.glos-flotante{position:fixed;right:18px;bottom:18px;z-index:900;background:var(--ambar);color:#3a2a00;border:none;border-radius:999px;padding:10px 16px;font-weight:800;font-size:.95rem;box-shadow:0 8px 22px rgba(0,0,0,.25);cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit}
+.glos-flotante:hover{transform:translateY(-1px)}
+.modal-fondo{position:fixed;inset:0;background:rgba(11,61,92,.55);backdrop-filter:blur(2px);z-index:950;display:flex;align-items:center;justify-content:center;padding:18px;animation:aparece .2s ease}
+.modal-fondo[hidden]{display:none}
+.modal{background:var(--blanco);border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.35);width:min(980px,100%);max-height:92vh;display:flex;flex-direction:column;overflow:hidden}
+.modal-cab{background:linear-gradient(120deg,var(--azul),var(--azul2));color:#fff;padding:14px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.modal-cab h2{margin:0;font-size:1.25rem;flex:1;min-width:200px}
+.modal-cab .cnt{font-size:.85rem;opacity:.9}
+.modal-cerrar{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;width:36px;height:36px;font-size:1.2rem;font-weight:800;cursor:pointer;line-height:1}
+.modal-cerrar:hover{background:rgba(255,255,255,.3)}
+.modal-herr{padding:12px 18px;border-bottom:1px solid var(--linea);background:#fbfdfe;display:grid;gap:8px}
+.modal-herr input[type=search]{width:100%;border:2px solid var(--linea);border-radius:12px;padding:11px 14px;font-size:1rem;font-family:inherit}
+.modal-herr input[type=search]:focus{outline:none;border-color:var(--teal)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:2px solid var(--linea);background:#fff;border-radius:999px;padding:5px 11px;font-size:.8rem;font-weight:700;color:var(--gris);cursor:pointer;font-family:inherit}
+.chip:hover{border-color:var(--teal);color:var(--teal2)}
+.chip.on{background:var(--azul2);border-color:var(--azul2);color:#fff}
+.chip.on-en{background:var(--ambar);border-color:var(--ambar);color:#3a2a00}
+.modal-cuerpo{overflow:auto;padding:6px 18px 18px;flex:1}
+.gl-letra{position:sticky;top:0;background:#fff;color:var(--teal2);font-weight:900;font-size:1.05rem;padding:10px 0 4px;border-bottom:2px solid var(--suave);margin-top:8px;z-index:1}
+.gl-item{padding:10px 0;border-bottom:1px solid var(--linea)}
+.gl-t{font-weight:800;color:var(--azul);font-size:1rem;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.gl-en{font-weight:600;color:var(--gris);font-style:italic;font-size:.88rem}
+.gl-tag{font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;border-radius:6px;padding:2px 7px;font-weight:800;background:var(--suave);color:var(--azul2)}
+.gl-tag.en{background:#fff1d6;color:#a35d00}
+.gl-d{margin-top:4px;font-size:.95rem;color:var(--texto)}
+.gl-d mark,.gl-t mark{background:#ffe89a;border-radius:3px;padding:0 2px}
+.gl-vacio{text-align:center;color:var(--gris);padding:30px 10px}
+.modal-pie{padding:10px 18px;border-top:1px solid var(--linea);display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.85rem;color:var(--gris);background:#fbfdfe}
+.modal-pie .btn{padding:7px 12px;font-size:.85rem}
+body.sin-scroll{overflow:hidden}
+@media (max-width:600px){.modal-fondo{padding:8px}.modal{max-height:96vh;border-radius:14px}.glos-flotante{padding:9px 12px;font-size:.85rem}}
+@media print{
+  body.print-glos .marco,body.print-glos header.top,body.print-glos footer,body.print-glos .glos-flotante{display:none!important}
+  body.print-glos .modal-fondo{position:static;display:block;background:none;padding:0;backdrop-filter:none}
+  body.print-glos .modal{max-height:none;box-shadow:none;border-radius:0;overflow:visible}
+  body.print-glos .modal-cuerpo{overflow:visible}
+  body.print-glos .modal-herr,body.print-glos .modal-pie,body.print-glos .modal-cerrar{display:none!important}
+  body.print-glos .gl-letra{position:static}
+  body:not(.print-glos) .modal-fondo,body:not(.print-glos) .glos-flotante{display:none!important}
+}
 </style>
 </head>
 <body>
@@ -276,6 +322,7 @@ footer{text-align:center;color:var(--gris);font-size:.85rem;padding:20px}
       <span class="pill">⭐ <b id="pill-pts">0</b> / <span id="pill-max">0</span> pts</span>
       <span class="pill">✅ <b id="pill-act">0</b> / <span id="pill-acttot">0</span> actividades</span>
       <span class="pill">⏱️ <b id="pill-tiempo">00:00</b></span>
+      <button class="pill boton" id="btn-glosario" type="button" aria-haspopup="dialog" aria-controls="modal-glos" title="Consultar el glosario de términos">📖 Glosario</button>
     </div>
   </div>
   <div class="barra-global" title="Progreso global"><div id="barra"></div></div>
@@ -288,9 +335,31 @@ footer{text-align:center;color:var(--gris);font-size:.85rem;padding:20px}
   <main id="main"></main>
 </div>
 
+<button class="glos-flotante" id="btn-glosario-flot" type="button" title="Abrir el glosario">📖 <span>Glosario</span></button>
+
+<div class="modal-fondo" id="modal-glos" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="glos-titulo">
+    <div class="modal-cab">
+      <span style="font-size:1.6rem">📖</span>
+      <h2 id="glos-titulo">Glosario de términos</h2>
+      <span class="cnt" id="glos-cnt"></span>
+      <button class="modal-cerrar" id="glos-cerrar" type="button" aria-label="Cerrar glosario">×</button>
+    </div>
+    <div class="modal-herr">
+      <input type="search" id="glos-buscar" placeholder="Buscar un término, sigla o palabra en inglés… (por ejemplo: MDL, blowdown, línea base)" aria-label="Buscar en el glosario" autocomplete="off">
+      <div class="chips" id="glos-chips"></div>
+    </div>
+    <div class="modal-cuerpo" id="glos-lista"></div>
+    <div class="modal-pie">
+      <span>Términos especializados del taller y sus equivalentes en inglés. Los marcados <span class="gl-tag en">EN</span> se usan en inglés en el contenido.</span>
+      <button class="btn sec" id="glos-print" type="button">🖨️ Imprimir glosario</button>
+    </div>
+  </div>
+</div>
+
 <canvas id="confeti"></canvas>
 <div class="toast" id="toast"></div>
-<footer>Taller interactivo · Lección 3 · Programa de detección y reparación de fugas · Docente: Juan Manuel Ortiz Afanador</footer>
+<footer>Taller interactivo · Lección 3 · Programa de detección y reparación de fugas · Docente: Juan Manuel Ortiz Afanador · <b>Versión v2</b> (con glosario)</footer>
 
 <script>
 /* ============================================================
@@ -1241,6 +1310,290 @@ STAGES.push({
   ]
 });
 /* ============================================================
+   GLOSARIO (términos especializados y términos en inglés)
+   t: término · en: equivalente/origen en inglés · ing: true si el término se usa en inglés
+   cat: ldar | norma | veritas | ts | stat | tec | unid
+   ============================================================ */
+const GLOS_CATS = {
+  ldar:'LDAR y Método 21 (EPA)', norma:'Resolución 40066 y normativa', veritas:'Protocolos Veritas',
+  ts:'Transporte y distribución', stat:'Estadística e incertidumbre', tec:'Equipos y tecnologías', unid:'Unidades, cifras y referencias'
+};
+const GLOSARIO = [
+  /* ---------- LDAR y Método 21 ---------- */
+  {t:'LDAR', en:'Leak Detection and Repair', ing:true, cat:'ldar', d:'Programa de detección y reparación de fugas: práctica de trabajo que monitorea periódicamente los componentes para saber si fugan y exige repararlos en plazos definidos. Según la guía de la EPA, consta de cinco elementos: identificar componentes, definir la fuga, monitorear, reparar y registrar.'},
+  {t:'EPA', en:'Environmental Protection Agency', ing:true, cat:'ldar', d:'Agencia de Protección Ambiental de Estados Unidos. Autora de la guía de mejores prácticas LDAR, del Método 21 y de los programas GHGRP y GHGI.'},
+  {t:'Método 21', en:'Method 21', cat:'ldar', d:'Procedimiento de referencia de la EPA (40 CFR 60, Apéndice A) para detectar fugas de compuestos orgánicos volátiles con un instrumento portátil: la sonda se apoya en la interfaz del componente, se recorre la periferia, se busca la lectura máxima y se sostiene allí dos veces el tiempo de respuesta. Localiza y clasifica fugas por concentración; no mide la tasa másica.'},
+  {t:'Compuestos orgánicos volátiles (COV)', en:'Volatile Organic Compounds (VOC)', cat:'ldar', d:'Hidrocarburos y otros compuestos orgánicos que se evaporan fácilmente y forman ozono troposférico (esmog). Las normas de la EPA sobre fugas en equipos regulan sus emisiones; el metano se detecta con los mismos instrumentos.'},
+  {t:'NSPS', en:'New Source Performance Standards', ing:true, cat:'ldar', d:'Normas de desempeño de la EPA para fuentes nuevas o modificadas (40 CFR 60). La mayoría de las que regulan fugas definen la fuga en 10.000 ppm.'},
+  {t:'NESHAP', en:'National Emission Standards for Hazardous Air Pollutants', ing:true, cat:'ldar', d:'Normas de la EPA para contaminantes atmosféricos peligrosos (40 CFR 61, 63 y 65), aplicables a fuentes nuevas y existentes. Muchas definen la fuga en 500 o 1.000 ppm.'},
+  {t:'Definición de fuga', en:'Leak definition', cat:'ldar', d:'Concentración umbral, medida con el Método 21 en ppm, por encima de la cual un componente se considera con fuga. Cambia según la norma, el tipo de componente, el servicio (gas, líquido liviano) y el intervalo de monitoreo. También cuentan indicios visuales, sonoros y de olor.'},
+  {t:'Definición interna de fuga', en:'Internal leak definition', cat:'ldar', d:'Umbral más estricto que el regulatorio, adoptado voluntariamente por la empresa (por ejemplo, 500 ppm en válvulas y 2.000 ppm en bombas), uniforme para componentes similares, para ganar margen de seguridad y evitar confusiones entre normas.'},
+  {t:'ppm / ppmv', en:'parts per million (by volume)', cat:'ldar', d:'Partes por millón en volumen: unidad de concentración con la que el instrumento del Método 21 expresa la lectura. 10.000 ppm equivalen al 1 % en volumen.'},
+  {t:'Interfaz', en:'Interface', cat:'ldar', d:'Superficie donde se unen dos piezas y por la que puede escapar el gas: vástago y prensaestopas, brida y empaque, eje y sello. La sonda debe apoyarse justo ahí; a 1 cm de distancia se pierde más de la mitad de las fugas grandes.'},
+  {t:'Sonda', en:'Probe', cat:'ldar', d:'Tubo de entrada de muestra del instrumento portátil (diámetro exterior máximo 6,4 mm) que se recorre por toda la periferia de la interfaz buscando la lectura máxima.'},
+  {t:'Tiempo de respuesta', en:'Response time', cat:'ldar', d:'Tiempo que tarda el instrumento en mostrar el 90 % de un cambio brusco de concentración; debe ser de 30 segundos o menos (2 a 4 s en un TVA típico). La lectura máxima se sostiene el doble de ese tiempo.'},
+  {t:'Factor de respuesta', en:'Response factor', cat:'ldar', d:'Relación entre la concentración real de un compuesto y la lectura del instrumento calibrado con el compuesto de referencia. Debe ser menor de 10 para cada compuesto medido.'},
+  {t:'Precisión de calibración', en:'Calibration precision', cat:'ldar', d:'Grado de concordancia entre mediciones repetidas del gas patrón, expresado como porcentaje de su valor; debe ser del 10 % o menos. Se verifica antes de usar el instrumento y cada tres meses.'},
+  {t:'Gas cero', en:'Zero gas', cat:'ldar', d:'Aire con menos de 10 ppmv de compuestos orgánicos volátiles, usado para poner el instrumento en cero antes de calibrar.'},
+  {t:'Gas de calibración (gas patrón)', en:'Calibration gas', cat:'ldar', d:'Mezcla certificada de concentración conocida, cercana a la definición de fuga, con la que se ajusta la lectura del instrumento cada día de uso. Tiene vida útil y debe reemplazarse al vencer.'},
+  {t:'Compuesto de referencia', en:'Reference compound', cat:'ldar', d:'Especie química (por ejemplo, metano) con la que se calibra el instrumento y respecto a la cual se expresa la definición de fuga: “10.000 ppm como metano”.'},
+  {t:'Deriva de calibración', en:'Calibration drift', cat:'ldar', d:'Cambio de la respuesta del instrumento durante el turno. El programa modelo la verifica al final de cada turno con gas de unas 500 ppm; si la deriva negativa supera el 10 %, se remonitorean las válvulas que dieron más de 100 ppm y las bombas que dieron más de 500 ppm.'},
+  {t:'Intervalo de monitoreo', en:'Monitoring interval', cat:'ldar', d:'Frecuencia con la que se monitorea cada tipo de componente: semanal, mensual, trimestral o anual; los conectores pueden monitorearse cada 2, 4 u 8 años según su desempeño.'},
+  {t:'Skip period', en:'Skip period', ing:true, cat:'ldar', d:'Permiso regulatorio para monitorear con menos frecuencia (por ejemplo, pasar de mensual a trimestral) cuando la fracción de componentes con fuga se mantiene baja (menos del 2 % en las NSPS). El programa modelo de la EPA recomienda no usarlo, porque a menudo se “ganaba” por mal monitoreo.'},
+  {t:'Primer intento de reparación', en:'First attempt at repair', cat:'ldar', d:'Acciones sencillas que deben hacerse a más tardar 5 días después de detectar la fuga: apretar o cambiar los pernos del bonete, apretar las tuercas del prensaestopas o inyectar lubricante en la empaquetadura. Se remonitorea al siguiente día hábil.'},
+  {t:'Reparación final', en:'Final repair', cat:'ldar', d:'Reparación que deja el componente por debajo de la definición de fuga, a más tardar 15 días después de la detección. Solo cuenta cuando un nuevo monitoreo lo confirma.'},
+  {t:'Delay of Repair', en:'Delay of Repair', ing:true, cat:'ldar', d:'Lista de componentes cuya reparación se pospone porque es técnicamente inviable sin parar la unidad. Exige ID, justificación, fecha estimada, aprobación del supervisor y reparación a más tardar en la siguiente parada; antes debe agotarse el drill and tap.'},
+  {t:'Drill and tap', en:'Drill and tap', ing:true, cat:'ldar', d:'Técnica para reparar válvulas en servicio: se perfora y rosca el prensaestopas, se instala una pequeña válvula y se inyecta empaquetadura nueva con una pistola. La EPA ya no la considera extraordinaria: hasta dos intentos en 30 días antes del Delay of Repair.'},
+  {t:'Bonete', en:'Bonnet', cat:'ldar', d:'Tapa superior del cuerpo de una válvula por donde sale el vástago. Apretar o cambiar sus pernos es parte del primer intento de reparación.'},
+  {t:'Prensaestopas', en:'Packing gland', cat:'ldar', d:'Pieza que comprime la empaquetadura alrededor del vástago de la válvula para sellarlo. Su interfaz con el vástago es el punto de fuga más común en válvulas.'},
+  {t:'Empaquetadura', en:'Packing', cat:'ldar', d:'Material de sellado (anillos o cordón) alrededor del vástago de una válvula o del pistón de un compresor reciprocante. Su desgaste normal es la causa típica de fugas.'},
+  {t:'Conector', en:'Connector', cat:'ldar', d:'Bridas, uniones roscadas y accesorios que unen tuberías y equipos. Fugan por falla del empaque o por pernos mal apretados; con las válvulas explican más del 90 % de las emisiones por fugas en equipos.'},
+  {t:'Línea abierta', en:'Open-ended line', cat:'ldar', d:'Tubería o manguera con un extremo abierto a la atmósfera. Se controla con tapones, tapas o bridas ciegas y con un procedimiento correcto de bloqueo y purga.'},
+  {t:'Válvulas sin fuga', en:'Leakless valves', cat:'ldar', d:'Válvulas de fuelle o de diafragma sin empaquetadura expuesta a la atmósfera. Junto con las bombas sin sello son la opción para reemplazar fugadores crónicos.'},
+  {t:'Fugador crónico', en:'Chronic leaker', cat:'ldar', d:'Componente que vuelve a fugar pese a las reparaciones. Los registros deben identificarlo para mantenimiento preventivo o reemplazo por tecnología sin fuga.'},
+  {t:'Inseguro o difícil de monitorear', en:'Unsafe / difficult to monitor', cat:'ldar', d:'Componente cuyo monitoreo se difiere por riesgo para el técnico o por accesibilidad. Debe listarse con su ID, la explicación y un plan que diga cuándo podrá monitorearse.'},
+  {t:'P&ID', en:'Piping and Instrumentation Diagram', ing:true, cat:'ldar', d:'Diagrama de tuberías e instrumentación. En él se anota el ID único de cada componente regulado y se verifica su ubicación física.'},
+  {t:'Datalogger', en:'Datalogger', ing:true, cat:'ldar', d:'Registrador electrónico que guarda cada lectura con fecha, hora, operador e instrumento. Permite auditar el ritmo real de monitoreo (por ejemplo, detectar “una válvula por segundo”).'},
+  {t:'QA/QC', en:'Quality Assurance / Quality Control', ing:true, cat:'ldar', d:'Aseguramiento y control de calidad de los datos LDAR: revisión diaria por el técnico y revisión trimestral de componentes por técnico, tiempos entre lecturas y patrones anómalos.'},
+  {t:'Auditoría LDAR', en:'LDAR audit', cat:'ldar', d:'Revisión interna o de terceros que verifica que se monitorean los equipos correctos, que se sigue el Método 21, que las fugas se reparan y que los registros existen. El programa modelo pide auditoría de terceros cada 4 años e internas intercaladas.'},
+  {t:'Programa LDAR modelo', en:'Model LDAR program', cat:'ldar', d:'Conjunto de 12 mejores prácticas de la EPA: programa escrito, entrenamiento, auditorías, responsabilidad de contratistas, definición interna de fuga, monitoreo más frecuente, primer intento de reparación, aseguramiento del Delay of Repair, datos electrónicos, QA/QC, deriva de calibración y mantenimiento de registros.'},
+  {t:'Tasa de fugas', en:'Leak rate', cat:'ldar', d:'Porcentaje de componentes monitoreados que resultan con fuga. Las investigaciones de la EPA hallaron cerca del 5 % de válvulas con fuga donde las refinerías reportaban 1,3 %.'},
+  {t:'Gestión de cambios', en:'Management of Change', cat:'ldar', d:'Procedimiento para evaluar si los componentes añadidos durante mantenimiento o construcción quedan sujetos al LDAR y para incorporarlos al programa.'},
+  {t:'Bay Area AQMD', en:'Bay Area Air Quality Management District', ing:true, cat:'ldar', d:'Distrito de gestión de la calidad del aire del Área de la Bahía de San Francisco (California). Su estudio de 1997 mostró que a 1 cm de la interfaz solo se encuentra el 79 % de las fugas de 100–500 ppm y el 43 % de las mayores de 500 ppm.'},
+  {t:'LEL', en:'Lower Explosive Limit', ing:true, cat:'ldar', d:'Límite inferior de explosividad: concentración mínima de gas en aire capaz de arder (5 % para el gas natural). Es un criterio de seguridad, no la definición de fuga de las normas.'},
+  {t:'TVA', en:'Toxic Vapor Analyzer', ing:true, cat:'tec', d:'Analizador portátil de vapores tóxicos con detector FID o PID, usado en los programas LDAR. Su tiempo de respuesta típico es de 2 a 4 segundos.'},
+  {t:'OVA', en:'Organic Vapor Analyzer', ing:true, cat:'tec', d:'Analizador portátil de vapores orgánicos con detector de ionización de llama; funcionalmente equivalente al TVA y admitido por la Resolución 40066 como instrumento de detección.'},
+  {t:'FID', en:'Flame Ionization Detector', ing:true, cat:'tec', d:'Detector de ionización de llama: cuenta hidrocarburos por los iones que producen al quemarse en una llama de hidrógeno. No responde al hidrógeno, por lo que no sirve para detectar fugas de H₂.'},
+  {t:'Detector catalítico', en:'Catalytic oxidation detector', cat:'tec', d:'Sensor que oxida el gas sobre un elemento caliente y mide el calor liberado. Es uno de los tipos de detector admitidos por el Método 21.'},
+  {t:'Detector infrarrojo (IR)', en:'Infrared absorption detector', cat:'tec', d:'Sensor que mide cuánta luz infrarroja absorbe el gas. Los hidrocarburos absorben IR; el hidrógeno no, así que estos detectores no lo ven.'},
+  {t:'PID', en:'Photoionization Detector', ing:true, cat:'tec', d:'Detector de fotoionización: una lámpara ultravioleta ioniza los compuestos y se mide la corriente resultante. Otro detector admitido por el Método 21.'},
+  {t:'Hidrógeno (H₂) en la red', en:'Hydrogen blending', cat:'tec', d:'Mezcla de hidrógeno en el gas natural. Agrava el problema de fugas por su alta permeación en elastómeros y porque los detectores FID e infrarrojos no lo detectan; exige otras tecnologías y más frecuencia de patrullaje.'},
+
+  /* ---------- Resolución 40066 y normativa ---------- */
+  {t:'Resolución 40066 de 2022', cat:'norma', d:'Norma del Ministerio de Minas y Energía (11 de febrero de 2022) que fija los requerimientos técnicos para la detección y reparación de fugas, el aprovechamiento, la quema y el venteo de gas natural durante la exploración y explotación de hidrocarburos. Fue modificada por la Resolución 40317 de 2023.'},
+  {t:'Resolución 40317 de 2023', cat:'norma', d:'Modificación de la Resolución 40066 que ajustó definiciones, la referencia al Método 21, los plazos de la línea base, la acreditación de organismos de inspección, la inspección semestral, la eficiencia de teas y los reportes.'},
+  {t:'MinMinas', cat:'norma', d:'Ministerio de Minas y Energía de Colombia, autoridad que expide los reglamentos técnicos del sector de hidrocarburos y administra el sistema MRV de gases de efecto invernadero del sector minero-energético.'},
+  {t:'Exploración y explotación (E&P)', en:'Exploration & Production (upstream)', cat:'norma', d:'Segmento “aguas arriba” de la cadena: pozos, facilidades de producción, tratamiento y almacenamiento en campo. Es el ámbito de aplicación de la Resolución 40066 (continental y costa afuera); transporte y distribución no están cubiertos directamente.'},
+  {t:'Entidad de Fiscalización', cat:'norma', d:'Entidad que por mandato legal fiscaliza la exploración y explotación de hidrocarburos. Recibe y aprueba permisos de quema, líneas base, programas de detección y reparación e informes anuales.'},
+  {t:'Operador', en:'Operator', cat:'norma', d:'Persona jurídica responsable de conducir las operaciones de exploración, evaluación, desarrollo y producción de hidrocarburos y de representar el contrato ante la Entidad de Fiscalización.'},
+  {t:'Fuga de Gas Natural (Res. 40066)', cat:'norma', d:'Liberación no intencional de gas natural a la atmósfera por componentes gastados, descompuestos o sueltos y por equipos que emiten más de lo normal. Existe fuga cuando la cuantificación determina una concentración igual o mayor a 500 ppm.'},
+  {t:'Componente (Res. 40066)', cat:'norma', d:'Válvulas, tuberías, conexiones, bridas, drenajes, empaques, instrumentos, escotillas, ventanillas, medidores, juntas de compresores y demás piezas de un equipo susceptibles de tener fugas.'},
+  {t:'Equipo (Res. 40066)', cat:'norma', d:'Bombas neumáticas, compresores, controles neumáticos, deshidratadores de glicol, líneas de flujo, equipos de quema, tanques y cualquier otro que pueda presentar fugas de gas natural.'},
+  {t:'Facilidad', en:'Facility', cat:'norma', d:'Conjunto de estructuras, plantas industriales y equipos para un proceso productivo: pozos, líneas de recolección, estaciones de tratamiento o almacenamiento. Se distingue entre facilidades existentes (anteriores a la resolución) y nuevas.'},
+  {t:'Línea Base', en:'Baseline', cat:'norma', d:'Primera cuantificación del volumen de fugas de cada facilidad con todos sus equipos y componentes; referencia para evaluar la mejora continua. Plazo: 12 meses en facilidades nuevas y 24 en existentes; seguimiento anual y actualización cada 3 años con comparativo.'},
+  {t:'Potencial de Emisión', cat:'norma', d:'Volumen estándar anual (m³/año) que se emitiría si el 100 % del flujo de la corriente de producción se liberara a la atmósfera. Las facilidades con menos de 60.000 m³/año quedan exentas del programa, demostrándolo cada año.'},
+  {t:'Enfoque de materialidad', en:'Materiality approach', cat:'norma', d:'Criterio del programa de detección y reparación: cubrir los activos que concentren como mínimo el 95 % de las fugas. El 5 % restante debe describirse en el informe anual.'},
+  {t:'Inspección Técnica Riesgosa', cat:'norma', d:'Inspección que expone al personal a riesgos (trabajo en altura, espacios confinados, equipos energizados). Permite ampliar el plazo de 48 horas para cuantificar y el plazo de reemplazo a 12 meses.'},
+  {t:'Programa de detección y reparación de fugas', cat:'norma', d:'Documento por facilidad, entregado a más tardar 60 días después de la línea base y aprobado por la Entidad de Fiscalización en 60 días, con cronograma anual de inspecciones (mínimo semestrales), reparaciones y mantenimiento. Inicia 30 días después de la aprobación y se actualiza cada año.'},
+  {t:'Reparación exitosa', cat:'norma', d:'Según la resolución, la fuga queda reparada cuando se reduce a menos de 500 ppm o cuando los instrumentos no detectan emisiones visibles. Cada reparación se informa dentro de los 30 días siguientes.'},
+  {t:'Etiquetado de fugas', en:'Tagging', cat:'norma', d:'Marcar el equipo o componente con una etiqueta que indique la fecha de detección, una vez estimado el flujo. La etiqueta solo se retira cuando la fuga se repara exitosamente; además se lleva un registro de ubicación.'},
+  {t:'Métodos indirectos de cuantificación', cat:'norma', d:'Cálculos de ingeniería, factores de emisión o software especializado. La resolución solo los admite excepcionalmente, con datos muestreados en campo, autorización previa y demostración de que la medición directa no es viable.'},
+  {t:'Organismo de inspección Tipo A / Tipo B', en:'Type A / Type B inspection body', cat:'norma', d:'Según NTC-ISO/IEC 17020: el Tipo A es un tercero independiente acreditado; el Tipo B es el propio operador acreditado para inspeccionar sus instalaciones. Emiten los informes de conformidad de la línea base y de la eficiencia de las teas.'},
+  {t:'NTC-ISO/IEC 17020', cat:'norma', d:'Norma que fija los requisitos de competencia, imparcialidad y funcionamiento de los organismos de inspección. La acreditación bajo ella (ONAC o miembro de ILAC) es la base de la conformidad exigida por la resolución.'},
+  {t:'ISO/IEC 17025', cat:'norma', d:'Norma de competencia de laboratorios de ensayo y calibración. Los instrumentos de detección y cuantificación que requieran calibración deben calibrarse en laboratorios acreditados bajo ella.'},
+  {t:'NTC-ISO/IEC 17050 (declaración de primera parte)', cat:'norma', d:'Norma para declaraciones de conformidad emitidas por el propio proveedor. La resolución la admite como mecanismo transitorio mientras no existan organismos de inspección acreditados en el país.'},
+  {t:'ONAC', cat:'norma', d:'Organismo Nacional de Acreditación de Colombia. Acredita los organismos de inspección (ISO/IEC 17020) y los laboratorios de calibración (ISO/IEC 17025) que exige la resolución.'},
+  {t:'ILAC', en:'International Laboratory Accreditation Cooperation', ing:true, cat:'norma', d:'Cooperación internacional de acreditación de laboratorios; sus miembros firmantes del acuerdo de reconocimiento mutuo son aceptados por la resolución como alternativa al ONAC.'},
+  {t:'MRV', en:'Monitoring, Reporting and Verification', cat:'norma', d:'Sistema de Monitoreo, Reporte y Verificación de emisiones de gases de efecto invernadero del Ministerio de Minas y Energía, al que aporta toda la información técnica generada por la resolución.'},
+  {t:'Ley 1931 de 2018', cat:'norma', d:'Ley colombiana de cambio climático. Sus principios de autogestión y responsabilidad (cada organización actúa para contribuir a las metas del país) fundamentan la Resolución 40066.'},
+  {t:'Carbono neutralidad 2050 (PIGCCme)', cat:'norma', d:'Meta del Plan Integral de Gestión del Cambio Climático del sector minero-energético (Resolución 40350 de 2021), marco en el que el Ministerio puede fijar límites de emisiones fugitivas.'},
+  {t:'Aprovechamiento de gas natural', en:'Gas utilization', cat:'norma', d:'Captar, recolectar o recuperar volúmenes de gas para darles uso: autoconsumo, comercialización, inyección u operación. La resolución prohíbe el desperdicio y obliga a buscar el aprovechamiento del gas asociado.'},
+  {t:'Desperdicio de gas natural', en:'Gas waste', cat:'norma', d:'Uso ineficiente del gas, producción que excede la capacidad de tratamiento o transporte, mal uso en levantamiento artificial, despresurización de anulares a la atmósfera o no aprovechar gas económicamente viable. Está prohibido.'},
+  {t:'Quema', en:'Flaring', cat:'norma', d:'Combustión controlada del gas en quemadores o teas. Requiere permiso anual (solicitado con 30 días de antelación) o puntual, sustentado en un Programa de Quema; lo que exceda el permiso paga regalías.'},
+  {t:'Tea / Tea de baja', en:'Flare / low-pressure flare', cat:'norma', d:'Dispositivo para quemar gas. La tea de baja quema el gas de sistemas de alivio a baja presión y velocidad (respiraderos de tanques, botas de gas) y es la alternativa obligatoria cuando no se puede aprovechar el gas de venteo.'},
+  {t:'Gas de purga y gas de pilotos', en:'Purge gas and pilot gas', cat:'norma', d:'Consumos mínimos de una tea para evitar la entrada de aire y mantener la llama. Si el fabricante no los suministra, se calculan con el método de flotabilidad de API STD 537 (purga) y con el Flare Cost Manual de la EPA (pilotos).'},
+  {t:'API STD 537', cat:'norma', d:'Estándar del American Petroleum Institute sobre detalles de sistemas de tea. Su ecuación de flotabilidad (G.4) se usa para calcular el volumen de gas de purga.'},
+  {t:'Flare Cost Manual (EPA)', ing:true, cat:'norma', d:'Manual de costos de control de la EPA (capítulo 7, 2019) cuyo método se usa para estimar el consumo de gas de los pilotos de una tea según su diámetro.'},
+  {t:'Quema rutinaria y quema operacional', cat:'norma', d:'Rutinaria: la quema por seguridad (purga y pilotos) más el gas económicamente inviable. Operacional: la rutinaria más la de eventos planeados y no planeados; su volumen máximo se calcula con un factor de eficiencia y reducción.'},
+  {t:'Eventos planeados y no planeados', cat:'norma', d:'Planeados: mantenimientos preventivos programados. No planeados: fallas de equipos que exigen mantenimiento correctivo. La quema por eventos no planeados se reduce con un factor que baja de 1 a 0 en cinco años.'},
+  {t:'Plan de Optimización Operacional', cat:'norma', d:'Documento anual del operador con los programas y proyectos para reducir los eventos no planeados; sustenta el volumen de quema por esos eventos.'},
+  {t:'Estudio Técnico-Económico', cat:'norma', d:'Análisis de todas las alternativas de aprovechamiento del gas (flujo de caja, costos de inversión y operación, valor presente neto) que justifica el gas económicamente inviable. Se actualiza cada año.'},
+  {t:'Gas económicamente inviable', cat:'norma', d:'Volumen de gas cuyo aprovechamiento cuesta más que el beneficio esperado, según un Estudio Técnico-Económico; su quema debe sustentarse y renovarse anualmente.'},
+  {t:'Eficiencia de la tea', en:'Flare efficiency', cat:'norma', d:'Medición anual del desempeño de combustión de cada tea (cámaras especiales, drones), certificada por un organismo de inspección acreditado. Las anomalías se reportan de inmediato y exigen un plan de corrección en 30 días, implementado en máximo 12 meses.'},
+  {t:'Venteo intencional', en:'Intentional venting', cat:'norma', d:'Emisión deliberada de gas asociado durante la recolección, el tratamiento y el almacenamiento de crudo. Está prohibido en explotación salvo emergencia, condiciones del mantenimiento preventivo o gas insuficiente para el piloto de la tea; se reporta en 24 horas.'},
+  {t:'Equipo de recuperación de vapores (VRU)', en:'Vapor Recovery Unit', cat:'norma', d:'Unidad que captura los vapores de tanques, botas y otros equipos y los conduce a proceso, autoconsumo o venta en vez de ventearlos. Debe identificarse, registrar volúmenes recuperados y salir de servicio solo por mantenimiento.'},
+  {t:'Respiraderos de tanques', en:'Tank vents', cat:'norma', d:'Venteos de los tanques de almacenamiento de crudo. No pueden estar abiertos a la atmósfera: deben conectarse a un sistema de recolección o a una tea de baja (24 meses de plazo para facilidades existentes).'},
+  {t:'Forma 30 DH', cat:'norma', d:'Formato de reporte mensual sobre producción, plantas y consumos de gas natural y procesado, adoptado por la resolución en reemplazo del Formato 30 SEE.'},
+  {t:'Bombas neumáticas', en:'Pneumatic pumps', cat:'norma', d:'Bombas de inyección de químicos accionadas por gas a presión, que ventean metano en cada ciclo. En facilidades nuevas deben ser de aire comprimido, eléctricas o fotovoltaicas; en existentes, redirigir el gas a VRU, combustión o tea, o sustituirlas en 12 meses si no cumplen la meta.'},
+  {t:'Controladores neumáticos', en:'Pneumatic controllers', cat:'norma', d:'Instrumentos de control (nivel, presión, temperatura) accionados por gas, de venteo continuo o intermitente. La resolución exige sustituirlos por aire comprimido, mecánicos o eléctricos (solares, solenoides, servomotores) y comprobar la hermeticidad de los intermitentes.'},
+  {t:'Sellos secos y sellos húmedos', en:'Dry seals / wet seals', cat:'norma', d:'Sellos del eje de los compresores centrífugos. Los húmedos usan aceite y liberan mucho gas al desgasificarlo; los secos emiten menos (16 frente a 5 SCFM según Zimmerle). La resolución exige sellos secos en facilidades nuevas y controlar o reemplazar los húmedos.'},
+  {t:'Deshidratador de glicol / desecante', en:'Glycol / desiccant dehydrator', cat:'norma', d:'Equipos que retiran agua del gas. Los de glicol ventean metano al regenerar el glicol y deben controlarse (optimizar circulación, bombas eléctricas, tanque flash, conectar la regeneración a un VRU) o reemplazarse por desecantes cuando sea seguro.'},
+  {t:'Descarga de líquidos en pozos', en:'Liquids unloading', cat:'norma', d:'Retiro de los líquidos acumulados que frenan el flujo de gas en un pozo. Debe hacerse con sarta de velocidad, barras espumantes, émbolo viajero o bombeo; la descarga manual a la atmósfera solo si se demuestra que esos métodos no son viables.'},
+  {t:'Hermeticidad', en:'Leak-tightness', cat:'norma', d:'Condición de no fuga de un controlador neumático de venteo intermitente cuando está en reposo. Debe comprobarse con los instrumentos del artículo 43 durante el programa de detección y reparación.'},
+  {t:'Regalías', en:'Royalties', cat:'norma', d:'Contraprestación económica al Estado por explotar recursos naturales no renovables. Se causa sobre los volúmenes de gas quemados por encima del permiso otorgado.'},
+
+  /* ---------- Protocolos Veritas ---------- */
+  {t:'Veritas', cat:'veritas', d:'Iniciativa de GTI Energy: marco técnico abierto y gratuito para que las empresas de gas midan, reconcilien, reporten y verifiquen sus emisiones de metano con datos de campo. Consta de cinco protocolos (intensidad, medición, reconciliación, sumatoria de la cadena de valor y aseguramiento) y dos guías (incertidumbre y recolección de datos).'},
+  {t:'GTI Energy', cat:'veritas', d:'Instituto de investigación y tecnología del gas de Estados Unidos (antes Gas Technology Institute), custodio de los protocolos Veritas y promotor de la clasificación del hidrógeno por intensidad de carbono.'},
+  {t:'Inventario informado por mediciones (MII)', en:'Measurement-Informed Inventory', ing:true, cat:'veritas', d:'Inventario de emisiones que incorpora mediciones directas a nivel de sitio o de fuente, en lugar de depender solo de factores de emisión. Es el producto central de Veritas y la base para calcular la intensidad.'},
+  {t:'Inventario bottom-up', en:'Bottom-up inventory', ing:true, cat:'veritas', d:'Inventario construido fuente por fuente multiplicando factores de actividad (conteos, horas, kilómetros) por factores de emisión y sumando. Veritas prefiere llamarlo “inventario por factores de emisión” para evitar ambigüedades.'},
+  {t:'Medición top-down', en:'Top-down measurement', ing:true, cat:'veritas', d:'Medición a escalas mayores que el componente (equipo, sitio, región, cuenca) que captura todas las fuentes activas a la vez, incluidas las no inventariadas. Veritas prefiere el término “medición a nivel de sitio”.'},
+  {t:'Factor de emisión (EF)', en:'Emission factor', cat:'veritas', d:'Emisión típica de metano por unidad de actividad de un componente, equipo o evento (kg/km, kg/evento, kg/equipo). Los factores “de fugador” describen la emisión cuando la fuente emite; los poblacionales promedian todas las fuentes, emitan o no.'},
+  {t:'Factor de actividad (AF)', en:'Activity factor', cat:'veritas', d:'Cantidad de “cosas que emiten”: número de componentes o dispositivos, kilómetros de tubería, horas de operación, número de eventos. Zimmerle mostró que los errores en estos datos “fáciles” pesan tanto como los de las tasas de emisión.'},
+  {t:'Reconciliación', en:'Reconciliation', cat:'veritas', d:'Proceso de combinar las mediciones a nivel de sitio con el inventario por factores de emisión para producir el inventario informado por mediciones y probar, con un test, que la mayoría del inventario proviene de mediciones.'},
+  {t:'Intensidad de metano', en:'Methane intensity', cat:'veritas', d:'Emisiones de metano divididas por un divisor (normalmente el throughput de metano del segmento), expresadas como porcentaje. Permite comparar empresas de distinto tamaño dentro de un mismo segmento.'},
+  {t:'Throughput', en:'Throughput', ing:true, cat:'veritas', d:'Volumen de gas (o de metano) que atraviesa un segmento o una empresa durante el año. Es el divisor de la intensidad en recolección, procesamiento, transporte, GNL y distribución.'},
+  {t:'Divisor de la intensidad', en:'Intensity divisor', cat:'veritas', d:'Normalizador de la intensidad: metano neto producido (producción), throughput (recolección, procesamiento, transporte y almacenamiento, GNL) o metano que cruza las city gates (distribución).'},
+  {t:'Gas ratio (GR)', en:'Gas ratio', ing:true, cat:'veritas', d:'Fracción de la energía total (gas más líquidos) que corresponde al gas natural. Reparte las emisiones de sitios que manejan también condensado o líquidos del gas. En transporte y distribución vale 1.'},
+  {t:'Tres resultados', en:'Three results', cat:'veritas', d:'Exigencia del protocolo de intensidad: reportar cada año las emisiones totales, el throughput y la intensidad, porque una intensidad puede mejorar solo porque creció el throughput, sin que bajen las emisiones.'},
+  {t:'Sumatoria de la cadena de valor', en:'Value chain summation', cat:'veritas', d:'Método (tomado de ONE Future) para normalizar las intensidades de segmentos con divisores distintos a una base común, la producción bruta nacional, y poder sumarlas: intensidad × throughput nacional del segmento / producción bruta nacional.'},
+  {t:'Intensidad aditiva', en:'Additive intensity', cat:'veritas', d:'Intensidad de un segmento ya convertida a base producción bruta; solo así puede sumarse con las de otros segmentos (ejemplo: 0,51 % × 25,6/29,5 = 0,44 %).'},
+  {t:'Producción bruta', en:'Gross production', cat:'veritas', d:'Volumen total de gas producido a nivel nacional en el año. Es la base común a la que se convierten todas las intensidades para la sumatoria de la cadena de valor.'},
+  {t:'Segmentos de la cadena de valor', en:'Value chain segments', cat:'veritas', d:'Veritas cubre seis: producción, recolección y compresión (G&B, gathering & boosting), procesamiento, transporte y almacenamiento (T&S), GNL (LNG) y distribución. En términos generales: upstream (producción y recolección), midstream (procesamiento y transporte) y downstream (distribución).'},
+  {t:'City gate', en:'City gate', ing:true, cat:'veritas', d:'Punto de entrega y medición entre el sistema de transporte y la red de distribución local. Es la frontera del segmento de distribución y el lugar donde se mide su throughput.'},
+  {t:'NGSI', en:'Natural Gas Sustainability Initiative', ing:true, cat:'veritas', d:'Iniciativa voluntaria de la industria (impulsada por AGA y EEI con inversionistas) cuyo protocolo de intensidad de metano por segmento adopta Veritas como estándar de cálculo.'},
+  {t:'ONE Future', ing:true, cat:'veritas', d:'Coalición de empresas de gas de Estados Unidos con meta de intensidad del 1 % en toda la cadena. Su protocolo aporta el método para convertir intensidades de segmento en intensidades aditivas.'},
+  {t:'GHGRP', en:'Greenhouse Gas Reporting Program', ing:true, cat:'veritas', d:'Programa de reporte obligatorio de gases de efecto invernadero de la EPA (40 CFR 98, subparte W). Las estaciones de transporte y almacenamiento reportan si superan 25.000 t CO₂e al año; Zimmerle mostró que sus reglas capturan solo parte de las emisiones.'},
+  {t:'GHGI', en:'Greenhouse Gas Inventory', ing:true, cat:'veritas', d:'Inventario nacional de emisiones y sumideros de gases de efecto invernadero de Estados Unidos, elaborado por la EPA. Para transporte y almacenamiento se basaba en datos de los años noventa; es la referencia de comparación de Zimmerle 2015.'},
+  {t:'AP-42', ing:true, cat:'veritas', d:'Compilación de factores de emisión de contaminantes atmosféricos de la EPA. Su capítulo 3 estima mejor el methane slip de los motores reciprocantes que el factor del GHGRP, que lo subestima.'},
+  {t:'PHMSA', en:'Pipeline and Hazardous Materials Safety Administration', ing:true, cat:'veritas', d:'Agencia del Departamento de Transporte de Estados Unidos que regula la seguridad de ductos. Los transportadores le reportan el throughput que Veritas usa como divisor del segmento.'},
+  {t:'OGMP 2.0', en:'Oil and Gas Methane Partnership', ing:true, cat:'veritas', d:'Marco de reporte de metano del Programa de las Naciones Unidas para el Medio Ambiente, con cinco niveles. El nivel 4 es un inventario específico por fuente del operador y el nivel 5 lo reconcilia con mediciones a nivel de sitio.'},
+  {t:'Aseguramiento', en:'Assurance', cat:'veritas', d:'Proceso, interno o externo, que verifica que los protocolos Veritas se aplicaron correctamente: competencias de los implementadores, sistemas de datos, procedimientos, registros y resultados. Es obligatorio para declarar la adopción.'},
+  {t:'Auditoría de terceros', en:'Third-party audit', cat:'veritas', d:'Verificación por un auditor independiente con experiencia en normas de verificación (ISO 14064, EU ETS, California AB-32). En Veritas es recomendada, no obligatoria; si se hace, debe cerrar los hallazgos.'},
+  {t:'Independencia del asegurador', en:'Assurance provider independence', cat:'veritas', d:'Quien asegura no puede haber ejecutado ni supervisado las actividades que revisa, ni dejar que consideraciones de producción o costo influyan en su trabajo.'},
+  {t:'Dashboard', en:'Dashboard', ing:true, cat:'veritas', d:'Tablero de indicadores público en línea. Veritas lo acepta como alternativa al reporte anual escrito, siempre que muestre el MII, los ajustes, las tecnologías, el MDL, la ruta y el resultado del test.'},
+  {t:'SOP', en:'Standard Operating Procedure', ing:true, cat:'veritas', d:'Procedimiento operativo estándar. El protocolo de aseguramiento exige documentar los SOP de entrenamiento, tecnologías de recolección, calidad de datos, software, retención de datos y aseguramiento interno.'},
+  {t:'ISO 14064-3', cat:'veritas', d:'Norma internacional para la verificación y validación de declaraciones de gases de efecto invernadero. Veritas toma de ella las definiciones de materialidad, error material y no conformidad.'},
+  {t:'Materialidad (aseguramiento)', en:'Materiality', cat:'veritas', d:'Umbral a partir del cual un error, solo o sumado a otros, cambiaría las decisiones de quien usa la intensidad (clientes, reguladores, inversionistas). Un error material debe comunicarse y corregirse.'},
+  {t:'MDAQ', en:'Methane Detection and Quantification', ing:true, cat:'veritas', d:'Métodos de detección y cuantificación de metano: la combinación de una tecnología (el instrumento), una práctica de trabajo y la analítica necesaria para estimar tasas de emisión.'},
+  {t:'Práctica de trabajo', en:'Work practice', cat:'veritas', d:'Cómo se usa una tecnología de medición: procedimientos (distancia a la fuente, tiempo de medición) y restricciones (condiciones ambientales, tipos de instalación). Sin ella, el desempeño del método no está definido.'},
+  {t:'Screening', en:'Screening', ing:true, cat:'veritas', d:'Encuesta rápida con aeronave, satélite, dron, vehículo o monitoreo continuo que detecta emisiones grandes a escala de sitio o equipo, sin diagnosticar el componente. Su resultado es marcar (flag) sitios para seguimiento.'},
+  {t:'Encuesta de corto alcance', en:'Close-range survey', cat:'veritas', d:'Inspección realizada junto al equipo por un técnico (cámara OGI, Método 21) que atribuye la fuente, hace el análisis de causa y etiqueta (tag) la fuga para su reparación.'},
+  {t:'Flag y tag', en:'Flag / tag', ing:true, cat:'veritas', d:'Marcar (flag): señalar un sitio o equipo sospechoso tras el screening para una inspección de seguimiento. Etiquetar (tag): identificar una fuga ya diagnosticada para emitir la orden de reparación.'},
+  {t:'Encuesta de seguimiento', en:'Follow-up survey', cat:'veritas', d:'Encuesta de corto alcance que se realiza sobre un sitio o equipo marcado por el screening para confirmar o descartar la fuga y diagnosticar su causa.'},
+  {t:'Encuesta de verificación', en:'Verification survey', cat:'veritas', d:'Inspección posterior a la reparación de una fuga etiquetada, que confirma que la reparación fue exitosa.'},
+  {t:'Análisis de causa', en:'Cause analysis', cat:'veritas', d:'Indagación rápida (recorrido AVO, cámara OGI, revisión de SCADA o registros de mantenimiento) para determinar qué originó una emisión detectada, atribuirla a una fuente y clasificarla como calculada o medida.'},
+  {t:'AVO', en:'Audio, Visual, Olfactory', ing:true, cat:'veritas', d:'Recorrido de inspección con los sentidos: oír silbidos, ver nieblas o goteos y oler gas. Es la forma más básica de análisis de causa.'},
+  {t:'Monitoreo continuo (CMS)', en:'Continuous Monitoring System', cat:'veritas', d:'Sensores fijos (puntuales, de trayectoria abierta o cámaras) que vigilan un sitio de forma casi continua, normalmente para generar alertas. Solo los que cuantifican tasas cuentan como método de medición en Veritas.'},
+  {t:'Emisiones fugitivas', en:'Fugitive emissions', cat:'veritas', d:'Emisiones no intencionales: fugas de componentes, escotillas abiertas, venteos excesivos por fallas. Son el objetivo de los programas LDAR y, según Zimmerle, el 75 % de las emisiones del sector de transporte.'},
+  {t:'Emisiones venteadas', en:'Vented emissions', cat:'veritas', d:'Emisiones intencionales por diseño u operación: purgas de dispositivos neumáticos, blowdowns, alivios, venteos de mantenimiento. Suelen estimarse mejor con registros que con mediciones puntuales.'},
+  {t:'Methane slip', en:'Methane slip', ing:true, cat:'veritas', d:'Metano sin quemar que escapa por el escape de motores y turbinas o por una tea (combustión incompleta). En los motores reciprocantes es dos órdenes de magnitud mayor que en las turbinas.'},
+  {t:'Superemisor', en:'Super-emitter', cat:'veritas', d:'Subconjunto pequeño de fuentes o sitios que aporta la mayoría de las emisiones de toda una categoría. En Zimmerle 2015, instalaciones que emiten más de 200 SCFM por condiciones anómalas (media 496 SCFM), presentes en cerca de 1 de cada 25 instalaciones en cualquier momento.'},
+  {t:'Atribución', en:'Attribution', cat:'veritas', d:'Asignar una emisión detectada a un activo, equipo o componente concreto. Depende de la resolución espacial del método: los de screening atribuyen a escala de sitio; los de corto alcance, a escala de componente.'},
+  {t:'Sitio, equipo y componente', en:'Site, equipment, component', cat:'veritas', d:'Escalas espaciales de la atribución. El componente (válvula, brida, conexión) es la más fina; varios componentes forman un equipo (tanque, separador); varios equipos forman un sitio (estación, pozo). Veritas evita el término “facilidad” por su significado regulatorio.'},
+  {t:'SCADA', en:'Supervisory Control and Data Acquisition', ing:true, cat:'veritas', d:'Sistema de supervisión, control y adquisición de datos de la operación. Sus registros permiten rastrear blowdowns, arranques y otros eventos que se estiman por cálculo.'},
+  {t:'Snapshot', en:'Snapshot measurement', ing:true, cat:'veritas', d:'Medición puntual de corta duración (una hora o menos, como una fotografía) que puede repetirse periódicamente. Se contrapone al monitoreo continuo y explica por qué hacen falta muchas repeticiones para capturar emisiones intermitentes.'},
+  {t:'Recolección de datos estandarizada', en:'Data collection guidance', cat:'veritas', d:'Guía de Veritas con ocho tablas de campos estándar (sitios, encuestas y detecciones de screening, encuestas y detecciones de corto alcance, reparación y verificación, método MDAQ e inspector) para que datos de distintas tecnologías y empresas sean comparables.'},
+
+  /* ---------- Transporte y distribución ---------- */
+  {t:'Transporte y almacenamiento (T&S)', en:'Transmission & Storage', ing:true, cat:'ts', d:'Segmento entre el medidor de recibo desde recolección o procesamiento y el city gate o el usuario industrial: ductos de alta presión, estaciones de compresión, almacenamiento subterráneo, estaciones de medición y regulación y equipos asociados.'},
+  {t:'Estación de compresión', en:'Compressor station', cat:'ts', d:'Instalación con compresores y sus motores o turbinas que eleva la presión del gas para moverlo por el ducto; se ubica cada 75 a 100 millas. Concentra las mayores fuentes de emisión del segmento (sellos, empaquetaduras, válvulas de aislamiento y blowdown, escape).'},
+  {t:'Almacenamiento subterráneo', en:'Underground storage', cat:'ts', d:'Yacimientos agotados o cavernas salinas donde se inyecta gas en épocas de baja demanda y se extrae en los picos. Incluye pozos, compresión, deshidratación y medición; sus estaciones emiten más por unidad que las de transporte.'},
+  {t:'Estación M&R', en:'Metering & Regulating station', ing:true, cat:'ts', d:'Estación de medición y regulación de presión entre sistemas o hacia los clientes. En distribución puede estar en cámaras bajo el nivel del suelo (activos subterráneos discretos).'},
+  {t:'Mejor calculadas', en:'Best calculated', ing:true, cat:'ts', d:'Canasta de fuentes cuyas emisiones anuales se estiman mejor con registros de actividad y cálculos de ingeniería que con mediciones puntuales: blowdowns, arranques, cargue de camiones, aforo de tanques y, si el operador lo decide, el methane slip por AP-42.'},
+  {t:'Mejor medidas', en:'Best measured', ing:true, cat:'ts', d:'Canasta de fuentes estocásticas cuyas emisiones solo se conocen midiendo: fugas de componentes, sellos y empaquetaduras, válvulas de alivio, tanques, teas apagadas, válvulas atascadas y toda fuente desconocida.'},
+  {t:'Blowdown', en:'Blowdown', ing:true, cat:'ts', d:'Despresurización intencional de un compresor, equipo o tramo de ducto para mantenimiento o seguridad. Es un evento registrado que se estima por cálculo (volumen y frecuencia), no con mediciones puntuales.'},
+  {t:'Venteo del arrancador', en:'Starter vent', cat:'ts', d:'Gas liberado por el arrancador neumático al poner en marcha un motor de compresor. Evento conocido y contado: canasta “mejor calculadas”.'},
+  {t:'Rod packing', en:'Rod packing', ing:true, cat:'ts', d:'Empaquetadura del vástago de un compresor reciprocante. Fuga por desgaste incluso con el compresor parado y presurizado, modo que el GHGRP omitía y que explica parte del subreporte detectado por Zimmerle.'},
+  {t:'Válvulas de aislamiento y de blowdown', en:'Isolation and blowdown valves', cat:'ts', d:'Válvulas que aíslan un compresor de la línea y lo despresurizan. Cuando no sellan bien dejan pasar gas hacia el venteo: fueron la causa típica de los superemisores observados por Zimmerle.'},
+  {t:'Escotilla', en:'Thief hatch', cat:'ts', d:'Tapa de acceso en el techo de un tanque para aforar o tomar muestras. Si queda abierta o su sello falla, ventea gas de forma continua: emisión “mejor medida”.'},
+  {t:'Válvula de descarga atascada', en:'Stuck dump valve', cat:'ts', d:'Válvula de nivel de un separador que queda abierta y deja pasar gas a presión hacia el tanque, que lo ventea. Es una falla no planeada: canasta “mejor medidas”.'},
+  {t:'Tea apagada', en:'Unlit flare', cat:'ts', d:'Tea sin llama que ventea gas sin quemar. Es una falla, no un evento programado, por lo que va a la canasta “mejor medidas”.'},
+  {t:'Cargue de camiones', en:'Truck loadout', cat:'ts', d:'Transferencia de líquidos desde los tanques a carrotanques; los vapores desplazados se emiten. Evento programado y registrado: se calcula.'},
+  {t:'Aforo de tanques', en:'Tank gauging', cat:'ts', d:'Medición manual del nivel de un tanque abriendo la escotilla. Evento breve y registrado: se calcula, no se mide.'},
+  {t:'Whole site', en:'Whole site / full facility measurement', ing:true, cat:'ts', d:'Medición de sitio completo: método cuya probabilidad de detección del 90 % captura al menos el 90 % de las emisiones esperadas del sitio (escape de combustión incluido). OGI y Método 21 no lo son, aunque se combinen con medición de tasa.'},
+  {t:'MDL', en:'Minimum Detection Limit', ing:true, cat:'ts', d:'Límite mínimo de detección: la menor tasa o concentración que un método detecta de forma confiable (probabilidad de detección de unos 90 %). Varía con el viento y las condiciones. Clases en Veritas: baja (captura ≥ 90 %, las mediciones se usan directamente), alta (solo grandes fuentes no inventariadas, se suman al inventario) e intermedia (reconciliación compleja).'},
+  {t:'POD', en:'Probability of Detection', ing:true, cat:'ts', d:'Probabilidad de que un método detecte una emisión de cierto tamaño. Por encima del MDL debe ser alta (≈ 90 %); por debajo cae, y las emisiones pequeñas quedan sin detectar.'},
+  {t:'Bandas de confianza de un método', en:'Quantification confidence bounds', cat:'ts', d:'Incertidumbre publicada de la tasa estimada por un método (por ejemplo, ± 40 % o −50 %/+100 % por medición). Veritas exige que sean conocidas, no que sean pequeñas: se estrechan promediando muchas mediciones.'},
+  {t:'Distribución esperada de emisiones', en:'Expected emissions distribution', cat:'ts', d:'Estimación previa de cuán grandes y frecuentes serán los emisores (a partir del inventario reconciliado anterior, mediciones propias, el inventario bottom-up o estudios regionales). Sirve para escoger el método y el muestreo; nunca se asume cero.'},
+  {t:'Ruta Measurement Only', en:'Measurement Only pathway', ing:true, cat:'ts', d:'Ruta de reconciliación en la que el inventario final se construye solo con mediciones, porque el método tiene MDL bajo y captura al menos el 90 %. Es simple, asume la hipótesis ergódica y no exige análisis de causa, pero puede tener alta incertidumbre por eventos intermitentes.'},
+  {t:'Ruta Source Based', en:'Source Based pathway', ing:true, cat:'ts', d:'Ruta de reconciliación que combina las fuentes “mejor calculadas” del inventario con las mediciones. Da menor incertidumbre, pero exige análisis de causa de cada detección para no contar dos veces.'},
+  {t:'Hipótesis ergódica', en:'Ergodic hypothesis', cat:'ts', d:'Supuesto de que el promedio de muchos sitios similares medidos en un instante equivale al promedio de un solo sitio observado durante mucho tiempo. Permite usar mediciones puntuales de muchos sitios para estimar emisiones anuales.'},
+  {t:'MII = ERm + ERb + ERt', cat:'ts', d:'Ecuación de reconciliación por sitio de Veritas T&S: emisiones medidas y anualizadas, más el inventario de las fuentes “mejor medidas” que quedaron bajo el MDL, más las fuentes “mejor calculadas” rastreadas durante el año.'},
+  {t:'PCR y test del 50 %', en:'Percent Capture Rate', ing:true, cat:'ts', d:'Porcentaje del inventario informado por mediciones que proviene de mediciones reales (ERm / MII). Debe ser al menos 50 %; si no, el operador ajusta el método o el muestreo con la meta de cumplir al final del segundo año. Hay excepción para quien usa la mejor tecnología disponible y casi no tiene detecciones.'},
+  {t:'Fracción de falla', en:'Failure fraction', cat:'ts', d:'Número de emisores encontrados dividido por la población multiplicada por el número de inspecciones. Describe con qué frecuencia una clase de equipo empieza a emitir (ejemplo: 14 escotillas con fuga / (20 escotillas × 6 inspecciones) = 0,117).'},
+  {t:'Acotar la duración de una emisión', en:'Duration bounding', cat:'ts', d:'Regla para intermitentes: si se conoce la reparación, el inicio se asume a mitad entre la última inspección limpia y la detección y el fin en la reparación; si no se conoce nada, se promedian todas las mediciones del año incluyendo las no detecciones.'},
+  {t:'Emisión intermitente', en:'Intermittent emission', cat:'ts', d:'Emisión que empieza y para, o que cambia con el tiempo. Puede ser conocida y rastreada (blowdowns, arranques: se calcula) o desconocida (fallas: se mide y se acota su duración).'},
+  {t:'Tracer flux', en:'Tracer flux method', ing:true, cat:'ts', d:'Método de trazador: se libera un gas trazador a tasa conocida en el sitio y se mide aguas abajo la relación entre metano y trazador para obtener la emisión total. Validó las mediciones en sitio de Zimmerle y reveló los superemisores.'},
+  {t:'Balance de masa aéreo', en:'Aerial mass balance', cat:'ts', d:'Método de sitio completo con dron o aeronave que integra el flujo de metano alrededor del sitio. No distingue fuentes, por lo que todas las fuentes activas conocidas deben ir a la canasta “mejor medidas”.'},
+  {t:'Red principal y acometidas', en:'Mains and services', ing:true, cat:'ts', d:'Tuberías de distribución enterradas: las principales (mains) recorren las calles a baja presión y las acometidas (services) llevan el gas desde la principal hasta cada cliente.'},
+  {t:'MSA', en:'Meter Set Assembly', ing:true, cat:'ts', d:'Conjunto de medición en el punto de entrega al cliente: regulador, medidor, válvulas y accesorios. Residencial, comercial o industrial; es un activo superficial que fuga por sus conexiones y reguladores.'},
+  {t:'LNG peak shaving', en:'LNG peak shaving', ing:true, cat:'ts', d:'Planta de gas natural licuado de una distribuidora que licúa gas en épocas de baja demanda y lo regasifica para cubrir los picos de invierno. Es un activo superficial discreto del segmento de distribución.'},
+  {t:'Recorrido a pie', en:'Walking survey', ing:true, cat:'ts', d:'Inspección de fugas caminando la red con un detector. Es la práctica tradicional de cumplimiento en distribución: localiza fugas pero no las cuantifica por sí sola.'},
+  {t:'AMLD', en:'Advanced Mobile Leak Detection', ing:true, cat:'ts', d:'Detección móvil avanzada: vehículo con analizador de alta sensibilidad, GPS y anemómetro que detecta, localiza y cuantifica plumas mientras circula, y distingue el gas de la red del metano biogénico por la relación metano/etano. Puede medir fugas desde 0,01 scfh.'},
+  {t:'Tenting', en:'Leak tenting', ing:true, cat:'ts', d:'Encerramiento de una fuga con una carpa o cámara para medir con precisión el caudal que escapa. Da tasas exactas pero es costoso de implementar.'},
+  {t:'Árbol de decisión', en:'Decision tree', cat:'ts', d:'Herramienta que asigna una tasa de emisión a una indicación de fuga según las concentraciones superficiales y las condiciones del sitio. Sirve para priorizar reparaciones; no es un método de medición.'},
+  {t:'Relación metano/etano', en:'Methane-to-ethane ratio', cat:'ts', d:'Cociente que permite distinguir el gas natural (que contiene etano) del metano biogénico de alcantarillados o rellenos (que no lo contiene). Es la base de la clasificación de fuentes de la AMLD.'},
+  {t:'Metano biogénico', en:'Biogenic methane', cat:'ts', d:'Metano producido por microorganismos en alcantarillados, rellenos sanitarios, plantas de tratamiento o humedales. Es el “ruido” urbano que debe separarse de las emisiones de la red de distribución.'},
+  {t:'Firma isotópica (δ¹³CH₄)', en:'Isotopic signature', cat:'ts', d:'Proporción de carbono-13 en el metano medido. El metano fósil y el biogénico tienen firmas distintas, lo que permite excluir del inventario detecciones que no provienen de la red.'},
+  {t:'GNV', en:'NGV (Natural Gas Vehicle)', cat:'ts', d:'Gas natural vehicular. Los vehículos y estaciones de GNV son fuentes urbanas de metano que pueden confundirse con fugas de la red y deben excluirse con evidencia.'},
+  {t:'Daños por excavación', en:'Excavation damage / pipeline hits', cat:'ts', d:'Roturas o perforaciones de tuberías por obras de terceros. Su emisión se calcula con la presión, el diámetro y la duración del evento: canasta “mejor calculadas”.'},
+  {t:'Tasa de creación de fugas', en:'Leak creation rate', cat:'ts', d:'Número de fugas nuevas que aparecen por unidad de tiempo y de longitud de red, estimado a partir de inspecciones repetidas. Permite extrapolar a las áreas no inspeccionadas y acotar la duración de las fugas.'},
+  {t:'Muestreo de territorio', en:'Territory sampling', cat:'ts', d:'Fracción de la red que se inspecciona en el periodo de reporte. Si no se cubre toda, el operador debe documentar cómo extrapola las fugas y emisiones al área no inspeccionada.'},
+  {t:'ERi = Qi × mi', cat:'ts', d:'Emisión de una categoría de activos en distribución: tasa promedio medida por fuga (Qi) multiplicada por el número total de fuentes emisoras de la categoría (mi). Las bandas de confianza del promedio se multiplican por el mismo número.'},
+  {t:'Emisiones calculadas (CE)', en:'Calculated emissions', cat:'ts', d:'Término de la ecuación del inventario de distribución (MII = ER inspeccionada·Δt + ER no inspeccionada·Δt + CE) que agrupa blowdowns de tubería, daños por excavación y venteos por sobrepresión.'},
+  {t:'Método de Cox', en:'Cox method', cat:'ts', d:'Fórmula para el intervalo de confianza de la media de una distribución log-normal. En distribución se usa para calcular cuántas fugas cuantificar: 72 con desviación estándar 0,94 en log(tasa), 95 % de confianza y límite superior 30 % por encima de la media.'},
+
+  /* ---------- Estadística e incertidumbre ---------- */
+  {t:'Incertidumbre', en:'Uncertainty', cat:'stat', d:'Intervalo de valores plausibles dentro del cual está el verdadero total de emisiones. Sin ella, un estimado no puede compararse con otro ni saberse si dos métodos concuerdan.'},
+  {t:'Intervalo de confianza (IC 95 %)', en:'Confidence interval', cat:'stat', d:'Rango que contendría el valor verdadero en el 95 % de los muestreos repetidos. En Zimmerle se calcula con los percentiles 2,5 y 97,5 de la distribución simulada; los intervalos que se traslapan indican diferencias no significativas.'},
+  {t:'Muestreo limitado', en:'Limited sampling', cat:'stat', d:'Medir solo una parte de los activos y durante poco tiempo (una muestra, no un censo). Es la primera fuente de incertidumbre y la razón de que los eventos grandes e intermitentes queden fuera.'},
+  {t:'Error de medición', en:'Measurement error', cat:'stat', d:'Diferencia entre la lectura del instrumento y el valor real. En metano suele ser grande y asimétrico (por ejemplo, −30 %/+50 %), por lo que no se modela bien con una distribución normal.'},
+  {t:'Error de modelo', en:'Model error', cat:'stat', d:'Imperfección del modelo que convierte mediciones en tasas de emisión: un modelo de dispersión gaussiana o una distribución log-normal supuesta son aproximaciones de la realidad.'},
+  {t:'Cola larga / sesgo a la derecha', en:'Long tail / right skew', cat:'stat', d:'Forma típica de las distribuciones de emisión: muchas fuentes pequeñas y unas pocas enormes que dominan el total. Solo se observa con muestras grandes (en Zimmerle, en todos los modelos con más de 90 datos y en ninguno con menos de 40).'},
+  {t:'Distribución log-normal', en:'Log-normal distribution', cat:'stat', d:'Distribución cuyo logaritmo sigue una campana normal. Aproxima las tasas de fuga en distribución (el histograma en escala log₁₀ tiene forma de campana), aunque las colas reales pueden ser aún más pesadas.'},
+  {t:'Percentil', en:'Percentile', cat:'stat', d:'Valor por debajo del cual queda un porcentaje dado de las observaciones. En 12 de los 17 modelos de Zimmerle el máximo medido duplica el percentil 97,5, señal de cola larga.'},
+  {t:'Detección imperfecta', en:'Imperfect detection', cat:'stat', d:'Un “cero” en los datos puede significar que no hay emisión o que la hay pero quedó bajo el límite de detección. Estos datos censurados exigen tratamiento estadístico especial.'},
+  {t:'Muestreo aleatorio simple', en:'Simple random sampling', cat:'stat', d:'Cada elemento de la población tiene la misma probabilidad de ser escogido. Es la base teórica, pero rara vez es práctico o eficiente en campo.'},
+  {t:'Muestreo estratificado', en:'Stratified sampling', cat:'stat', d:'Dividir la población en grupos homogéneos (región, material, edad, fabricante, presión) y muestrear al azar dentro de cada uno, en proporción a su tamaño. Reduce la incertidumbre frente a un muestreo simple del mismo tamaño.'},
+  {t:'Tamaño de muestra', en:'Sample size', cat:'stat', d:'Número de mediciones necesario para lograr una precisión dada con un nivel de confianza. Con 25 fugas el promedio puede errar en un factor de 2; con 200, ± 35 %; con 400, ± 25 %.'},
+  {t:'Margen de error y precisión objetivo', en:'Margin of error', cat:'stat', d:'Mitad del ancho del intervalo de confianza (por ejemplo, ± 30 % al 95 %). Quien quiera demostrar una reducción del 30 % no puede tener una incertidumbre mayor que eso.'},
+  {t:'Teorema del límite central', en:'Central Limit Theorem', cat:'stat', d:'Resultado que justifica los intervalos de confianza clásicos para la media. Falla con muestras pequeñas de distribuciones muy sesgadas, como las de emisiones de metano.'},
+  {t:'Bootstrap', en:'Bootstrap', ing:true, cat:'stat', d:'Técnica no paramétrica que remuestrea con reemplazo los datos observados muchas veces para estimar la variabilidad del promedio. No genera valores fuera del rango observado, así que no “inventa” grandes emisores no vistos.'},
+  {t:'Monte Carlo', en:'Monte Carlo simulation', ing:true, cat:'stat', d:'Simulación que repite miles de veces un cálculo tomando valores aleatorios de las variables inciertas para obtener la distribución del resultado. Zimmerle usó 50.000 iteraciones; Veritas la recomienda para propagar incertidumbre.'},
+  {t:'Propagación de error (Taylor)', en:'Taylor series error propagation', cat:'stat', d:'Aproximación analítica de primer orden para combinar los errores de las variables de entrada (fracción de fuentes que emiten y tasa media) en el error del total. Es rápida, pero supone independencia y normalidad.'},
+  {t:'Regla de 1/√n', cat:'stat', d:'La incertidumbre del promedio disminuye en proporción a la raíz cuadrada del número de mediciones independientes, siempre que el sesgo sea bajo. Por eso una medición de sitio con ± 50 % es útil cuando se acumulan muchas.'},
+  {t:'Sesgo', en:'Bias', cat:'stat', d:'Error sistemático de un método o de una muestra (por ejemplo, medir solo zonas nuevas de la red). A diferencia del error aleatorio, no se reduce midiendo más veces.'},
+  {t:'Función de distribución acumulada empírica (CDF)', en:'Empirical cumulative distribution function', cat:'stat', d:'Curva construida con los datos medidos que indica la probabilidad de que una emisión sea menor que un valor dado. Zimmerle construyó 17 de ellas como insumo del Monte Carlo.'},
+  {t:'Análisis de sensibilidad', en:'Sensitivity analysis', cat:'stat', d:'Repetir el cálculo del total incluyendo o excluyendo emisiones dudosas (por ejemplo, una pluma grande no ubicada) o cambiando supuestos, para ver cuánto cambia el resultado.'},
+  {t:'Extrapolación', en:'Extrapolation', cat:'stat', d:'Llevar los resultados de la muestra a toda la población (todas las fugas de una categoría, toda la red). Debe ser robusta, transparente, justificable y conservadora, y validarse con mediciones del siguiente periodo.'},
+  {t:'Contingencia de muestra', en:'Sampling contingency', cat:'stat', d:'Porcentaje adicional (por ejemplo, 10 %) que se añade al tamaño de muestra para cubrir fallas de campo: viento excesivo, baterías, nubes, sitios inaccesibles.'},
+  {t:'Muestra representativa', en:'Representative sample', cat:'stat', d:'Muestra escogida al azar y con buena cobertura espacial que refleja la variedad de la población (materiales, edades, regiones), de modo que sus resultados puedan extrapolarse.'},
+
+  /* ---------- Equipos y tecnologías de medición ---------- */
+  {t:'OGI', en:'Optical Gas Imaging', ing:true, cat:'tec', d:'Cámara infrarroja que hace visible la pluma de hidrocarburos como una nube en la imagen. Detecta y ayuda a atribuir la fuga al componente, pero por sí sola no mide el caudal.'},
+  {t:'QOGI', en:'Quantitative Optical Gas Imaging', ing:true, cat:'tec', d:'Versión cuantitativa de la cámara OGI: un software procesa la imagen para estimar la tasa de emisión. La Resolución 40066 la lista como instrumento de cuantificación.'},
+  {t:'Detector de fugas con láser', en:'Laser leak detector', cat:'tec', d:'Instrumento que emite un haz láser a la longitud de onda que absorbe el metano y mide la concentración integrada a distancia; útil para inspeccionar componentes inaccesibles.'},
+  {t:'Solución jabonosa', en:'Soap solution screening', cat:'tec', d:'Rociar agua jabonosa sobre uniones y observar burbujas. Es el procedimiento de tamizaje alternativo del Método 21 para fuentes sin partes móviles; si hay burbujas, se confirma con instrumento.'},
+  {t:'Detector acústico', en:'Acoustic leak detector', cat:'tec', d:'Sensor ultrasónico que capta el ruido de alta frecuencia del gas al escapar. Sirve para detectar fugas y, con correlaciones, estimar su tasa; en Zimmerle los acústicos portátiles no midieron bien los grandes venteos.'},
+  {t:'Detector electrónico de gas', en:'Electronic gas detector', cat:'tec', d:'Instrumento portátil (catalítico, infrarrojo o semiconductor) que alerta sobre la presencia de gas combustible. Herramienta de detección admitida por la Resolución 40066.'},
+  {t:'Bolsa calibrada', en:'Calibrated bag', cat:'tec', d:'Bolsa de volumen conocido que encierra la fuente; el tiempo que tarda en llenarse da el caudal de la fuga. Método directo y sencillo de cuantificación.'},
+  {t:'Muestreador de alto volumen (Hi-Flow)', en:'High-volume sampler', cat:'tec', d:'Equipo que aspira toda la fuga junto con aire a un caudal alto conocido y mide la concentración resultante; el producto de ambos es la tasa de emisión. Referencia de cuantificación de fugas de componentes.'},
+  {t:'Anemómetro de aspas y de hilo caliente', en:'Vane / hot-wire anemometer', cat:'tec', d:'Instrumentos que miden la velocidad del gas en un venteo o tubo abierto; con el área de la sección se calcula el caudal. Listados como cuantificación en la Resolución 40066.'},
+  {t:'Medidor de turbina y medidor de orificio', en:'Turbine meter / orifice meter', cat:'tec', d:'Medidores de flujo: la turbina gira en proporción al caudal; el de orificio lo calcula a partir de la caída de presión a través de una placa. Cuantifican venteos y gas recolectado.'},
+  {t:'Sensores puntuales y de trayectoria abierta', en:'Point sensors / open-path sensors', cat:'tec', d:'Tipos de monitoreo continuo: el puntual mide la concentración en su ubicación (depende de que el viento le traiga la pluma); el de trayectoria abierta mide la concentración integrada a lo largo de un haz láser.'},
+  {t:'Dron / UAV', en:'Unmanned Aerial Vehicle', cat:'tec', d:'Vehículo aéreo no tripulado con sensor de metano; útil a escala de equipo y sitio (no regional) para screening y balance de masa.'},
+  {t:'Aeronave y satélite', en:'Aircraft / satellite surveys', cat:'tec', d:'Plataformas de screening a escala de sitio y región. Los satélites tienen granularidad pobre y MDL alto (los “ultraemisores” desde 10.000 kg/h); en distribución urbana ninguno separa la red del uso final.'},
+  {t:'LiDAR', en:'Light Detection and Ranging', ing:true, cat:'tec', d:'Tecnología láser aerotransportada que mapea plumas de metano desde baja altura. En distribución está en desarrollo, con restricciones de altura en ciudad y un MDL superior a la mayoría de las fugas.'},
+  {t:'Torres de medición', en:'Measurement towers', cat:'tec', d:'Estaciones fijas de medición atmosférica que estiman las emisiones de toda una ciudad o región. No separan la distribución del uso final y sus datos no sirven para actuar sobre fugas concretas.'},
+  {t:'Compresor centrífugo y reciprocante', en:'Centrifugal / reciprocating compressor', cat:'tec', d:'El centrífugo comprime con un rodete giratorio (sellos secos o húmedos, suele ir con turbina o motor eléctrico); el reciprocante con pistones (empaquetaduras del vástago, casi siempre con motor de combustión). Zimmerle halló 29 % de centrífugos en transporte frente al 9 % supuesto por el GHGI.'},
+  {t:'Dispositivos neumáticos de purga continua e intermitente', en:'Continuous-bleed / intermittent-bleed pneumatics', cat:'tec', d:'Controladores accionados por gas: los de purga continua ventean todo el tiempo (3,5 Mg/año cada uno según Zimmerle); los intermitentes solo al actuar (0,40 Mg/año). Transporte usa unos 24 por estación y almacenamiento 85.'},
+  {t:'Escape de motores y turbinas', en:'Engine / turbine exhaust', cat:'tec', d:'Gases de combustión de los accionadores de compresores; contienen metano sin quemar (methane slip). El escape de un motor reciprocante emite dos órdenes de magnitud más metano por potencia que el de una turbina.'},
+  {t:'Modo “parado presurizado”', en:'Not operating, pressurized', cat:'tec', d:'Estado de un compresor detenido pero con gas a presión en su interior. Las empaquetaduras siguen fugando en ese modo, fuente que el GHGRP omitía y que explica el 15 % de la diferencia hallada por Zimmerle.'},
+
+  /* ---------- Unidades, cifras y referencias ---------- */
+  {t:'scfh / SCFM', en:'standard cubic feet per hour / per minute', ing:true, cat:'unid', d:'Pies cúbicos estándar por hora y por minuto: unidades de tasa de fuga o emisión. 1 SCFM equivale a unos 1,7 m³/h o 1,2 kg de metano por hora; 1 scfh ≈ 0,02 kg CH₄/h.'},
+  {t:'Mscf / Tcf', en:'thousand / trillion standard cubic feet', ing:true, cat:'unid', d:'Mil pies cúbicos estándar (Mscf) y billón, 10¹², de pies cúbicos (Tcf): unidades de throughput y producción. 1 Mscf ≈ 28,3 m³.'},
+  {t:'Gg / Mg / t', en:'gigagram / megagram / metric ton', cat:'unid', d:'Gigagramo (mil toneladas), megagramo (una tonelada) y tonelada métrica: unidades de emisión anual. Zimmerle estima 1.503 Gg/año para el sector de transporte y almacenamiento.'},
+  {t:'kg/h', cat:'unid', d:'Kilogramos de metano por hora: unidad habitual de la tasa de emisión medida a nivel de sitio o de fuente (por ejemplo, un MDL de 1 kg/h).'},
+  {t:'t CO₂e', en:'tonnes of CO₂ equivalent', cat:'unid', d:'Toneladas de dióxido de carbono equivalente: masa de un gas de efecto invernadero convertida a CO₂ según su potencial de calentamiento. Es la unidad del umbral de reporte del GHGRP (25.000 t CO₂e).'},
+  {t:'0,0192 t/Mscf', cat:'unid', d:'Densidad del metano en condiciones estándar usada por Veritas, el GHGRP y NGSI para convertir volumen (Mscf) en masa (toneladas) al calcular la intensidad.'},
+  {t:'g/hp-h', en:'grams per horsepower-hour', ing:true, cat:'unid', d:'Gramos de metano emitidos por caballo de fuerza-hora de trabajo del motor: unidad del factor de emisión del escape (3,7 g/hp-h según Zimmerle frente a 2,4 neto en el GHGI).'},
+  {t:'Órdenes de magnitud', en:'Orders of magnitude', cat:'unid', d:'Potencias de diez. Las fugas de distribución abarcan unos cuatro (de 0,01 a 100 scfh), y una campaña representativa debe cubrirlos todos.'},
+  {t:'m³ estándar', en:'standard cubic metre', cat:'unid', d:'Metro cúbico medido a condiciones estándar de presión y temperatura. Es la unidad del Potencial de Emisión de la Resolución 40066 (60.000 m³/año).'},
+  {t:'Metano (CH₄)', en:'Methane', cat:'unid', d:'Componente principal del gas natural y potente gas de efecto invernadero de vida corta. Reducir sus fugas es la forma más rápida de mejorar el desempeño climático del gas.'},
+  {t:'Gases de efecto invernadero (GEI)', en:'Greenhouse gases (GHG)', cat:'unid', d:'Gases que absorben y reemiten la radiación infrarroja de la Tierra: dióxido de carbono, metano, óxido nitroso, hidrofluorocarbonos, perfluorocarbonos y hexafluoruro de azufre (Ley 1931 de 2018).'},
+  {t:'O&M', en:'Operation & Maintenance', ing:true, cat:'unid', d:'Operación y mantenimiento: las áreas responsables de operar la red y conservar la integridad de los activos; sus prácticas explican gran parte de las diferencias de emisiones entre empresas.'},
+  {t:'Descarbonización', en:'Decarbonization', cat:'unid', d:'Reducción de las emisiones de gases de efecto invernadero asociadas a una actividad. En el gas, empieza por controlar las fugas de metano antes de pensar en mezclas con hidrógeno.'},
+  {t:'Zimmerle et al. (2015)', cat:'unid', d:'Estudio de la Universidad Estatal de Colorado publicado en Environmental Science & Technology sobre las emisiones de metano del sector de transporte y almacenamiento de Estados Unidos: 2.292 mediciones, 677 instalaciones con datos de emisiones y 922 con datos de actividad; introdujo el tratamiento explícito de colas largas y superemisores.'},
+  {t:'Subramanian et al. (2015)', cat:'unid', d:'Estudio complementario de la misma campaña, centrado en las mediciones en estaciones de compresión: el 10 % de las estaciones aportaba más del 50 % de las emisiones y dos superemisores solo se vieron con tracer flux.'},
+  {t:'Lamb et al. (2015)', cat:'unid', d:'Estudio de mediciones directas en redes de distribución de Estados Unidos (Washington State University). Sus distribuciones log-normales de fugas subterráneas se usan como punto de partida para dimensionar muestras en el protocolo de distribución.'},
+  {t:'Washington State University (WSU)', ing:true, cat:'unid', d:'Universidad que realizó mediciones directas de fugas por clase de activo en distribución; sus datos permiten construir factores de emisión específicos y estimar la incertidumbre según el tamaño de muestra.'},
+  {t:'Environmental Science & Technology', ing:true, cat:'unid', d:'Revista científica de la American Chemical Society donde se publicaron los estudios de Zimmerle y Subramanian sobre emisiones de metano del sector de transporte.'},
+  {t:'1 de cada 25', cat:'unid', d:'Frecuencia media de superemisores estimada por Zimmerle (4,1 %): en cualquier hora del año, aproximadamente una de cada 25 instalaciones de transporte y almacenamiento está emitiendo a tasas anómalas.'},
+  {t:'API', en:'American Petroleum Institute', ing:true, cat:'unid', d:'Instituto Americano del Petróleo. Publica estándares técnicos (como API STD 537 para teas) y el Compendio de metodologías de estimación de gases de efecto invernadero.'}
+];
+/* ============================================================
    MOTOR DEL TALLER
    ============================================================ */
 const KEY = 'taller_L3_T2_v1';
@@ -1334,7 +1687,8 @@ function renderPortada(main){
       <div class="regla"><div class="e">💬</div><b>Retroalimentación inmediata</b><small>Cada error te explica qué elegiste, por qué no es correcto y cuál es la respuesta</small></div>
       <div class="regla"><div class="e">🏅</div><b>Medallas y nivel final</b><small>Una medalla por etapa completada y un nivel según tu puntaje</small></div>
       <div class="regla"><div class="e">💾</div><b>Progreso guardado</b><small>Se guarda en este navegador; puedes cerrar y volver</small></div>
-      <div class="regla"><div class="e">⏱️</div><b>40 a 50 minutos</b><small>Lee cada etapa, mira la infografía y resuelve las actividades</small></div>
+      <div class="regla"><div class="e">⏱️</div><b>Lee, aprende y resuelve los retos</b><small>Lee cada etapa, mira la infografía y resuelve las actividades</small></div>
+      <div class="regla"><div class="e">📖</div><b>Glosario siempre a mano</b><small>Usa el botón “Glosario” del encabezado (o el flotante) para consultar cualquier sigla o término en inglés</small></div>
     </div>
     <div class="nombre">
       <label for="nombre"><b>Tu nombre</b> (aparecerá en el resumen final):</label><br>
@@ -1770,6 +2124,52 @@ function confeti(){
 /* ---------- reloj ---------- */
 setInterval(()=>{ if(document.visibilityState==='visible' && state.current!=='s0'){ state.elapsed=(state.elapsed||0)+1; $('#pill-tiempo').textContent=tiempoTxt(state.elapsed); if(state.elapsed%15===0) guardar(); } }, 1000);
 window.addEventListener('beforeunload', guardar);
+
+/* ---------- glosario ---------- */
+const glos = {q:'', cat:'all'};
+function normaliza(t){ return String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+function resaltar(txt, q){ if(!q) return txt; const nq=normaliza(q); const nt=normaliza(txt); if(nt.length!==txt.length) return txt; let out='', i=0; while(true){ const k=nt.indexOf(nq,i); if(k<0){ out+=txt.slice(i); break; } out+=txt.slice(i,k)+'<mark>'+txt.slice(k,k+q.length)+'</mark>'; i=k+q.length; } return out; }
+function glosOrdenado(){ return GLOSARIO.slice().sort((a,b)=>normaliza(a.t).localeCompare(normaliza(b.t),'es')); }
+function glosFiltrado(){
+  const nq = normaliza(glos.q.trim());
+  return glosOrdenado().filter(g=>{
+    if(glos.cat==='en' && !g.ing) return false;
+    if(glos.cat!=='all' && glos.cat!=='en' && g.cat!==glos.cat) return false;
+    if(!nq) return true;
+    return normaliza(g.t).includes(nq) || normaliza(g.en||'').includes(nq) || normaliza(g.d).includes(nq);
+  });
+}
+function renderGlosChips(){
+  const cats = [['all','Todos'],['en','EN · Términos en inglés']].concat(Object.keys(GLOS_CATS).map(k=>[k,GLOS_CATS[k]]));
+  $('#glos-chips').innerHTML = cats.map(([k,l])=>'<button type="button" class="chip'+(glos.cat===k?(k==='en'?' on on-en':' on'):'')+'" data-cat="'+k+'">'+l+'</button>').join('');
+  $$('#glos-chips .chip').forEach(c=>c.onclick=()=>{ glos.cat=c.dataset.cat; renderGlosChips(); renderGlosLista(); });
+}
+function renderGlosLista(){
+  const lista = glosFiltrado(); const q = glos.q.trim();
+  $('#glos-cnt').textContent = lista.length+' de '+GLOSARIO.length+' términos';
+  if(!lista.length){ $('#glos-lista').innerHTML='<div class="gl-vacio">No hay términos que coincidan con “'+esc(q)+'”. Prueba con una sigla (MDL, OGI) o una palabra más corta.</div>'; return; }
+  let html='', letra='';
+  lista.forEach(g=>{
+    const ini = normaliza(g.t).replace(/[^a-z0-9]/g,'').charAt(0).toUpperCase() || '#';
+    const l = /[0-9]/.test(ini) ? '0-9' : ini;
+    if(l!==letra && !q){ letra=l; html+='<div class="gl-letra">'+l+'</div>'; }
+    html+='<div class="gl-item"><div class="gl-t">'+resaltar(g.t,q)+(g.en?'<span class="gl-en">'+(g.ing?'':'en inglés: ')+resaltar(g.en,q)+'</span>':'')+(g.ing?'<span class="gl-tag en">EN</span>':'')+'<span class="gl-tag">'+GLOS_CATS[g.cat]+'</span></div><div class="gl-d">'+resaltar(g.d,q)+'</div></div>';
+  });
+  $('#glos-lista').innerHTML = html;
+}
+function abrirGlosario(){
+  const m=$('#modal-glos'); m.hidden=false; document.body.classList.add('sin-scroll');
+  renderGlosChips(); renderGlosLista();
+  setTimeout(()=>{ const i=$('#glos-buscar'); i.value=glos.q; i.focus(); },50);
+}
+function cerrarGlosario(){ $('#modal-glos').hidden=true; document.body.classList.remove('sin-scroll'); }
+$('#btn-glosario').onclick = abrirGlosario;
+$('#btn-glosario-flot').onclick = abrirGlosario;
+$('#glos-cerrar').onclick = cerrarGlosario;
+$('#modal-glos').addEventListener('click', e=>{ if(e.target.id==='modal-glos') cerrarGlosario(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('#modal-glos').hidden) cerrarGlosario(); });
+$('#glos-buscar').addEventListener('input', e=>{ glos.q=e.target.value; renderGlosLista(); });
+$('#glos-print').onclick = ()=>{ document.body.classList.add('print-glos'); const done=()=>{ document.body.classList.remove('print-glos'); window.removeEventListener('afterprint',done); }; window.addEventListener('afterprint',done); window.print(); setTimeout(done,2000); };
 
 /* ---------- arranque ---------- */
 $('#pill-tiempo').textContent = tiempoTxt(state.elapsed||0);
